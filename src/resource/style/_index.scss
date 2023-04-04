@@ -1,4 +1,11 @@
 @import "./common.css";
 @import "./header.scss";
+@import "./searchbar.scss";
 @import "./sidemenu.scss";
 @import "./kakaomap.scss";
+
+// font
+@import "../font/pretendard.css";
+@import "../font/XEIcon/xeicon.min.css";
+
+* {font-family: "Pretendard";}

@@ -2,11 +2,15 @@
   "menu": [
     {
       "title": "home",
-      "link": ""
+      "link": "/"
     },
     {
       "title": "Search Archive",
-      "link": ""
+      "link": "archive"
+    },
+    {
+      "title": "HowTo Use?",
+      "link": "help"
     }
   ]
 }
