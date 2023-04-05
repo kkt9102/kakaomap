@@ -12,13 +12,35 @@ const searchKeywordState = atom({
   default: ""
 });
 
+const saveKeywordState = atom({
+  key: "savekeyword",
+  default: [
+    {
+      title:"",
+    },
+    {
+      title:"",
+    },
+    {
+      title:"",
+    },
+    {
+      title:"",
+    },
+    {
+      title:"",
+    }
+  ]
+});
+
 const searchResultState = atom({
   key: "result",
   default: null
-})
+});
 
 export { 
   kakaomapOptionState,
   searchKeywordState,
+  saveKeywordState,
   searchResultState
 };

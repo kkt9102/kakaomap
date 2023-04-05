@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import { searchKeywordState, searchResultState } from "../state/kakaomapState";
+import { searchKeywordState, searchResultState, saveKeywordState } from "../state/kakaomapState";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useRecoilState(searchKeywordState);
   const [userLat, setUserLat] = useState(null);
   const [userLng, setUserLng] = useState(null);
   const [result, setResult] = useRecoilState(searchResultState);
+  const [save, setSave] = useRecoilState(saveKeywordState);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -49,9 +50,13 @@ const SearchBar = () => {
           // console.error(status);
           return status
         }
-      }
+      };
+      // save.forEach(keyword => {
+      //   setSave(keyword)
+      // });
+      
     }
-    console.log("실행 후",result)
+    console.log("실행 후",result);
   };
   
   
