@@ -10,6 +10,10 @@ const ResultPopup = () => {
   const handleClosePopup = () => {
     setResuultPop(false);
   }
+
+  const handleFocusMarker = (e) => {
+    
+  }
   return(
     <div className="result_pop fixed">
       <div className="close_btn cursor_p" onClick={handleClosePopup}>
