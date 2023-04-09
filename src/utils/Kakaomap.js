@@ -65,6 +65,8 @@ const KakaoMap = () => {
     
   }, [userLat, userLng, options]);
 
+  // SearchResult
+  let infowindow = new window.kakao.maps.InfoWindow({zIndex:1});
   if (Result !== null) {
     Result.forEach((list, index) => {
       const locPosition = new window.kakao.maps.LatLng(list.y, list.x);
@@ -74,10 +76,20 @@ const KakaoMap = () => {
         // 마커 아이콘을 설정합니다.
         image: new window.kakao.maps.MarkerImage(currentIcon , new window.kakao.maps.Size(30, 30)),
       });
-      window.kakao.maps.event.addListener(marker, "click", function () {
+      window.kakao.maps.event.addListener(marker, "mouseover", function () {
+        displayInfowindow(marker, list.place_name);
       });
+      window.kakao.maps.event.addListener(marker, 'mouseout', function() {
+        infowindow.close();
+    });
     });
   }
+  function displayInfowindow(marker, title) {
+    let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+    infowindow.setContent(content);
+    infowindow.open(map, marker);
+} 
 
   useEffect(() => {
     if (navigator.geolocation) {

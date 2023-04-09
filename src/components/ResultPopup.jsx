@@ -8,7 +8,7 @@ const ResultPopup = () => {
   console.log(Result)
 
   const handleClosePopup = () => {
-    setResuultPop(false)
+    setResuultPop(false);
   }
   return(
     <div className="result_pop fixed">
@@ -25,10 +25,14 @@ const ResultPopup = () => {
               <i className="xi-home-o"></i>
               <div>{item.road_address_name}</div>
             </div>
+            {item.phone.length !== 0 ? 
             <div className="place_tel flex flex_jc_s flex_ai_c">
               <i className="xi-call"></i>
               <div>{item.phone}</div>
             </div>
+            :
+            null
+            }
           </li>
         )}
       </ul>

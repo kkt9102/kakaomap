@@ -1,1 +1,10 @@
-.archive_section {padding-top:5rem;}
+.archive_section {padding-top:5rem;
+  .title {font-size:3rem; font-weight: 900;}
+  .list {max-width: 70%; margin:5rem auto;
+    ul {
+      li {list-style: circle;
+        .title {font-size: 2.5rem;}
+      }
+    }
+  }
+}

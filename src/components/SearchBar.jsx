@@ -46,6 +46,7 @@ const SearchBar = () => {
             newSave.push({ title: keyword });
             return newSave.slice(-5);
           });
+          console.log(_pagination)
           setResuultPop(true);
           return setResult(data);
         } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
@@ -54,6 +55,7 @@ const SearchBar = () => {
           return status
         }
       };
+     
     }
   };
   

@@ -15,21 +15,9 @@ const searchKeywordState = atom({
 const saveKeywordState = atom({
   key: "savekeyword",
   default: [
-    {
-      title:"",
-    },
-    {
-      title:"",
-    },
-    {
-      title:"",
-    },
-    {
-      title:"",
-    },
-    {
-      title:"",
-    }
+    // {
+    //   title:"",
+    // }
   ]
 });
 
