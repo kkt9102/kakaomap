@@ -15,7 +15,7 @@ const SearchArchive = () => {
             <li>검색한 기록이 없어요!</li>
             :
             keywordArchive.map((item, index) =>
-              <li key={index}>{item}</li>
+              <li key={index}>{item.title}</li>
             )
           }
         </ul>

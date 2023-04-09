@@ -2,14 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { searchKeywordState, searchResultState } from "../state/kakaomapState";
-import imageAdd from "../resource/img/logo512.png";
+import currentIcon from "../resource/img/current.svg";
 
 const KakaoMap = () => {
   const [map, setMap] = useState(null);
   const container = useRef(null);
   const [userLat, setUserLat] = useState(null);
   const [userLng, setUserLng] = useState(null);
-
   const [options, setOptions] = useState({
     center: new window.kakao.maps.LatLng(userLat, userLng),
     level: 4,
@@ -17,7 +16,7 @@ const KakaoMap = () => {
   // getKeyword
   const keywordString = useRecoilValue(searchKeywordState);
   // search result
-  const [ result, setResult ] = useRecoilState(searchResultState);
+  const Result = useRecoilValue(searchResultState);
   useEffect(() => {
     if (userLat && userLng) {
       const options = {
@@ -38,7 +37,7 @@ const KakaoMap = () => {
       const locPosition = new window.kakao.maps.LatLng(userLat, userLng);
       
       // User Position Marker
-      const imageSrc  = imageAdd,
+      const imageSrc  = currentIcon,
             imageSize = new window.kakao.maps.Size(20,20),
             imageOption = {offset: new window.kakao.maps.Point(0, 0)};
       const customMarker = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
@@ -50,45 +49,35 @@ const KakaoMap = () => {
       });
 
       // User Position Range
-      let circle = new window.kakao.maps.Circle({
-        center: locPosition,
-        radius: 500,
-        strokeWeight: 1,
-        strokeColor: "#6556ff",
-        strokeOpacity: 0.2,
-        strokeStyle: "solid",
-        fillColor: "#6556ff",
-        fillOpacity: 0.05,
-      });
-      circle.setMap(map);
+      // let circle = new window.kakao.maps.Circle({
+      //   center: locPosition,
+      //   radius: 500,
+      //   strokeWeight: 1,
+      //   strokeColor: "#6556ff",
+      //   strokeOpacity: 0.2,
+      //   strokeStyle: "solid",
+      //   fillColor: "#6556ff",
+      //   fillOpacity: 0.05,
+      // });
+      // circle.setMap(map);
     };
 
-    // const ps = new window.kakao.maps.services.Places();
-    // const searchOption = {
-    //   location: new window.kakao.maps.LatLng(userLat, userLng),
-    //   radius: 1000,
-    //   size: 15,
-    //   page: 45,
-    // };
-    // ps.keywordSearch(keywordString, palceSearchDB, searchOption);
-    // console.log(keywordString)
-    // // keywordString
-    // function palceSearchDB(data, status, _pagination) {
-    //   if (status === window.kakao.maps.services.Status.OK) {
-    //     // 정상적으로 검색이 완료됐으면
-    //     // 검색 목록과 마커를 표출합니다
-    //     // displayPlacesOnSidebar(data);
-    //     // 페이지 번호를 표출합니다
-    //     // displayPagination(_pagination);
-    //     setResult(data);
-    //   } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-    //     console.log(status)
-    //     return;
-    //   } else if (status === window.kakao.maps.services.Status.ERROR) {
-    //     return;
-    //   }
-    // };
+    
   }, [userLat, userLng, options]);
+
+  if (Result !== null) {
+    Result.forEach((list, index) => {
+      const locPosition = new window.kakao.maps.LatLng(list.y, list.x);
+      const marker = new window.kakao.maps.Marker({
+        map: map,
+        position: locPosition,
+        // 마커 아이콘을 설정합니다.
+        image: new window.kakao.maps.MarkerImage(currentIcon , new window.kakao.maps.Size(30, 30)),
+      });
+      window.kakao.maps.event.addListener(marker, "click", function () {
+      });
+    });
+  }
 
   useEffect(() => {
     if (navigator.geolocation) {

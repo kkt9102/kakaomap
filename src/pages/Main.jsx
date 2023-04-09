@@ -1,16 +1,16 @@
 import { useRecoilValue } from "recoil";
 
-import { searchResultState } from "../state/kakaomapState";
+import { resultPopupState } from "../state/kakaomapState";
 
 import KakaoMap from "../utils/Kakaomap";
 import ResultPopup from "../components/ResultPopup";
 
 const Main = () => {
-  const Result = useRecoilValue(searchResultState);
+  const ResultPop = useRecoilValue(resultPopupState)
   return(
     <>
       <KakaoMap/>
-      {Result !== null ?
+      {ResultPop !== false ?
         <ResultPopup/>
         :
         null

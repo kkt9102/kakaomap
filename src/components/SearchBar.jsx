@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import { searchKeywordState, searchResultState, saveKeywordState } from "../state/kakaomapState";
+import { searchKeywordState, searchResultState, saveKeywordState, resultPopupState } from "../state/kakaomapState";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useRecoilState(searchKeywordState);
@@ -9,6 +9,7 @@ const SearchBar = () => {
   const [userLng, setUserLng] = useState(null);
   const [result, setResult] = useRecoilState(searchResultState);
   const [save, setSave] = useRecoilState(saveKeywordState);
+  const [resultPop, setResuultPop] = useRecoilState(resultPopupState);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -40,23 +41,20 @@ const SearchBar = () => {
       ps.keywordSearch(keyword, palceSearchDB, searchOption);
       function palceSearchDB(data, status, _pagination) {
         if (status === window.kakao.maps.services.Status.OK) {
-          // console.log(data);
-          // setResult(data);
+          setSave((oldSave) => {
+            const newSave = [...oldSave];
+            newSave.push({ title: keyword });
+            return newSave.slice(-5);
+          });
+          setResuultPop(true);
           return setResult(data);
         } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-          // console.log(status);
           return status
         } else if (status === window.kakao.maps.services.Status.ERROR) {
-          // console.error(status);
           return status
         }
       };
-      // save.forEach(keyword => {
-      //   setSave(keyword)
-      // });
-      
     }
-    console.log("실행 후",result);
   };
   
   

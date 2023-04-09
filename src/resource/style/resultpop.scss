@@ -1,1 +1,19 @@
-.result_pop {width:30%; height:100%; top:5rem; left:0rem; background: #ffffff; border:1px solid red; z-index: 4;}
+.result_pop {width:35%; height:100%; top:5rem; left:0rem; background: #ffffff; z-index: 4;
+  .close_btn {margin:0.2rem; text-align: right;
+    i {font-size: 3.6rem;}
+  }
+  ul {padding: 2rem;
+    li {margin-bottom: 2rem;
+      .place_name {
+        div{font-size:2.1rem; font-weight: 600;}
+      }
+      .place_addr {
+        div{font-size:1.8rem; font-weight: 400;}
+      }
+      .place_tel {
+        div{font-size:1.4rem; font-weight: 400; color:#666666;}
+      }
+      i {font-size: 2rem;}
+    }
+  }
+}

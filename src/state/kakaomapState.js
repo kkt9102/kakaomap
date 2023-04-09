@@ -38,9 +38,15 @@ const searchResultState = atom({
   default: null
 });
 
+const resultPopupState = atom({
+  key: "popup",
+  default: false
+})
+
 export { 
   kakaomapOptionState,
   searchKeywordState,
   saveKeywordState,
-  searchResultState
+  searchResultState,
+  resultPopupState
 };
