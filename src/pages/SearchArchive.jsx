@@ -15,6 +15,7 @@ const SearchArchive = () => {
             keywordArchive.map((item, index) =>
               <li key={index} className="mar_top_20">
                 <div className="title">{item.title}</div>
+                <div>{item.reg_dt}</div>
               </li>
             ).reverse()
             :

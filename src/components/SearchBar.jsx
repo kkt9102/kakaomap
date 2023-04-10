@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 import { searchKeywordState, searchResultState, saveKeywordState, resultPopupState } from "../state/kakaomapState";
+import * as Date from "../utils/datetime";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useRecoilState(searchKeywordState);
@@ -11,6 +12,7 @@ const SearchBar = () => {
   const [save, setSave] = useRecoilState(saveKeywordState);
   const [resultPop, setResuultPop] = useRecoilState(resultPopupState);
 
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -36,31 +38,37 @@ const SearchBar = () => {
         location: new window.kakao.maps.LatLng(userLat, userLng),
         radius: 1000,
         size: 15,
-        page: 45,
+        page: 1,
       };
       ps.keywordSearch(keyword, palceSearchDB, searchOption);
-      function palceSearchDB(data, status, _pagination) {
+      function palceSearchDB(data, status, pagination) {
         if (status === window.kakao.maps.services.Status.OK) {
           setSave((oldSave) => {
             const newSave = [...oldSave];
-            newSave.push({ title: keyword });
+            newSave.push({ 
+              title: keyword,
+              reg_dt: Date.year + "-" + Date.LengthMonth + "-" + Date.LengthDate
+                      + " " + Date.LenghtHours + ":" + Date.LengthMin + ":" + Date.LengthSec
+            });
             return newSave.slice(-5);
           });
-          console.log(_pagination)
+
           setResuultPop(true);
-          return setResult(data);
+          setResult({
+            item: data,
+            page: pagination
+          });
         } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
           return status
         } else if (status === window.kakao.maps.services.Status.ERROR) {
           return status
         }
+      
+
       };
-     
     }
   };
   
-  
-
   return (
     <div className="search_bar flex flex_ai_c">
       <input

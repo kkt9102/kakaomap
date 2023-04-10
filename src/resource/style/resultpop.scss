@@ -1,19 +1,26 @@
-.result_pop {width:35%; height:100%; top:5rem; left:0rem; background: #ffffff; z-index: 4;
+.result_pop {width:30%; height:100%; top:5rem; left:0rem; background: #ffffff; z-index: 4;
   .close_btn {margin:0.2rem; text-align: right;
     i {font-size: 3.6rem;}
   }
-  ul {max-height:90%; height:90%; padding: 2rem; overflow-y: scroll;
-    li {margin-bottom: 2rem;
+  ul {max-height:calc(90% - 3rem); height:90%; overflow-y: scroll;
+    li {padding: 1rem 2rem; border-bottom:1px solid #222222;
       .place_name {
         div{font-size:2.1rem; font-weight: 600;}
       }
-      .place_addr {
+      .place_addr {margin-top:0.5rem;
         div{font-size:1.8rem; font-weight: 400;}
       }
-      .place_tel {
+      .place_tel {margin-top:0.3rem;
         div{font-size:1.4rem; font-weight: 400; color:#666666;}
+        i {font-size: 1.6rem; color:#222222;}
       }
       i {font-size: 2rem;}
     }
+  }
+}
+#pagination {height:3rem;
+  a {display: flex; flex-basis: 2rem; justify-content: center; align-items: center; height:2rem; margin:0 0.5rem; border-radius: 50%; font-size:1.4rem; color:#222222;
+    &.on {background:#ffd900; }
+    &:hover {border:1px solid #ffd900;}
   }
 }
