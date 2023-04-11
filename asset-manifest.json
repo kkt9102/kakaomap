@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/kakaomap/static/css/main.ca7c02b9.css",
+    "main.js": "/kakaomap/static/js/main.ec8f069f.js",
+    "static/js/787.f9f10743.chunk.js": "/kakaomap/static/js/787.f9f10743.chunk.js",
+    "static/media/Pretendard-Medium.otf": "/kakaomap/static/media/Pretendard-Medium.bcebdfe0d3918708aa5d.otf",
+    "static/media/Pretendard-SemiBold.otf": "/kakaomap/static/media/Pretendard-SemiBold.9009f5d2e39a2d3bdaf6.otf",
+    "static/media/Pretendard-Bold.otf": "/kakaomap/static/media/Pretendard-Bold.e75150e686324d4f5c03.otf",
+    "static/media/Pretendard-Regular.otf": "/kakaomap/static/media/Pretendard-Regular.ca2c5a97ebe998670619.otf",
+    "static/media/Pretendard-Light.otf": "/kakaomap/static/media/Pretendard-Light.dac3138bfaaad8d39a9d.otf",
+    "static/media/Pretendard-Bold.woff": "/kakaomap/static/media/Pretendard-Bold.d0f80e7ac3933bfbf45d.woff",
+    "static/media/Pretendard-SemiBold.woff": "/kakaomap/static/media/Pretendard-SemiBold.3fb6e3741b5dffea918e.woff",
+    "static/media/Pretendard-Medium.woff": "/kakaomap/static/media/Pretendard-Medium.a2ef0b28cc457c109381.woff",
+    "static/media/Pretendard-Regular.woff": "/kakaomap/static/media/Pretendard-Regular.371a053f6fa19004d5fa.woff",
+    "static/media/Pretendard-Light.woff": "/kakaomap/static/media/Pretendard-Light.e90933d161baef9945bf.woff",
+    "static/media/xeicon.svg?v=2.2.0": "/kakaomap/static/media/xeicon.620e88a79d539d12968e.svg",
+    "static/media/xeicon.eot": "/kakaomap/static/media/xeicon.4335b40de624fe076a55.eot",
+    "static/media/xeicon.woff?v=2.2.0": "/kakaomap/static/media/xeicon.174845b2fda6504a8cbc.woff",
+    "static/media/xeicon.ttf?v=2.2.0": "/kakaomap/static/media/xeicon.f3b789d5c53f391f95a3.ttf",
+    "static/media/xeicon.woff2?v=2.2.0": "/kakaomap/static/media/xeicon.62b99b0931f2ce65fd3a.woff2",
+    "index.html": "/kakaomap/index.html",
+    "static/media/current.svg": "/kakaomap/static/media/current.45ac7365d76406b4f5dd011e33e26c5d.svg",
+    "main.ca7c02b9.css.map": "/kakaomap/static/css/main.ca7c02b9.css.map",
+    "main.ec8f069f.js.map": "/kakaomap/static/js/main.ec8f069f.js.map",
+    "787.f9f10743.chunk.js.map": "/kakaomap/static/js/787.f9f10743.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca7c02b9.css",
+    "static/js/main.ec8f069f.js"
+  ]
+}
