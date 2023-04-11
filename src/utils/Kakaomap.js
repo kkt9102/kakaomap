@@ -6,6 +6,18 @@ import currentIcon from "../resource/img/current.svg";
 import markerIcon from "../resource/img/marker.svg";
 
 const KakaoMap = () => {
+  const [ wid, setWid ] = useState(Number);
+  const resizeWindow = () => {
+    setWid(window.innerWidth)
+  };
+  useEffect(() => {
+    setWid(window.innerWidth)
+      window.addEventListener("resize", resizeWindow)
+      return () => {
+          window.removeEventListener("resize", resizeWindow)
+      };
+  },[wid]);
+  console.log(wid)
   const [map, setMap] = useState(null);
   const container = useRef(null);
   const [userLat, setUserLat] = useState(null);
@@ -22,7 +34,7 @@ const KakaoMap = () => {
     if (userLat && userLng) {
       const options = {
         center: new window.kakao.maps.LatLng(userLat, userLng),
-        level: 4,
+        level: wid > 768 ? 4 : 5,
       };
       const map = new window.kakao.maps.Map(container.current, options);
       // window.kakao.maps.event.addListener(map, 'zoom_changed', function() {
@@ -39,7 +51,7 @@ const KakaoMap = () => {
       
       // User Position Marker
       const imageSrc  = currentIcon,
-            imageSize = new window.kakao.maps.Size(20,20),
+            imageSize = new window.kakao.maps.Size(wid > 768 ? (20,20) : (17,17)),
             imageOption = {offset: new window.kakao.maps.Point(0, 0)};
       const customMarker = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
       
@@ -52,7 +64,7 @@ const KakaoMap = () => {
       // User Position Range
       let circle = new window.kakao.maps.Circle({
         center: locPosition,
-        radius: 500,
+        radius: wid > 768 ? 500 : 300,
         strokeWeight: 1,
         strokeColor: "#6556ff",
         strokeOpacity: 0.2,
@@ -75,7 +87,7 @@ const KakaoMap = () => {
           map: map,
           position: locPosition,
           // 마커 아이콘을 설정합니다.
-          image: new window.kakao.maps.MarkerImage(markerIcon , new window.kakao.maps.Size(30, 30)),
+          image: new window.kakao.maps.MarkerImage(markerIcon , new window.kakao.maps.Size(wid > 768 ? (20,20) : (17,17))),
         });
         window.kakao.maps.event.addListener(marker, "mouseover", function () {
           displayInfowindow(marker, list.place_name);
