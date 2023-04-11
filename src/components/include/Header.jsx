@@ -29,7 +29,7 @@ const Header = () => {
         <i className="xi-map-o"></i>
       </div>
       {
-        path_name === "/kakaomap" ? 
+        path_name === "/kakaomap/" ? 
           <SearchBar/>
         :
         <p>{path_name === "/archive" ? "검색기록" : "사용법"}</p>
