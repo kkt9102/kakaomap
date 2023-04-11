@@ -1,12 +1,14 @@
 .header {width: 100%; height: 5rem; padding:0 2rem; background: #ffffff; z-index: 10;
-  .title {}
+  .title {
+    i {font-size: 4rem;}
+  }
   .bars_btn {flex-basis:4rem; height:5rem; z-index: 3;
     div {flex-basis:100%; width:4rem; height:0.4rem; background: #222222; border-radius: 3px;
       &:first-child {top:25%; transition: top 0.2s 0.2s, transform 0.2s;}
       &:nth-child(2) {top:45%; opacity: 1; transition: opacity 0.2s;}
       &:last-child {top:65%; transition: top 0.2s 0.2s, transform 0.2s;}
     }
-    &.active {
+    &.active { z-index: 12;
       div {
         &:first-child {top:45%; transform:rotate(45deg); transition: top 0.2s, transform 0.2s 0.2s;}
         &:nth-child(2) {opacity: 0; transition: opacity 0.2s;}

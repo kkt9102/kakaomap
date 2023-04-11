@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import { searchKeywordState, searchResultState, saveKeywordState, resultPopupState } from "../state/kakaomapState";
+import { menuState } from "../state/commonState";
 import * as Date from "../utils/datetime";
 
 const SearchBar = () => {
@@ -12,6 +13,7 @@ const SearchBar = () => {
   const [save, setSave] = useRecoilState(saveKeywordState);
   const [resultPop, setResuultPop] = useRecoilState(resultPopupState);
 
+  const menuBg = useRecoilValue(menuState);
   
   useEffect(() => {
     if (navigator.geolocation) {
@@ -45,6 +47,7 @@ const SearchBar = () => {
         if (status === window.kakao.maps.services.Status.OK) {
           setSave((oldSave) => {
             const newSave = [...oldSave];
+            console.log(Date.nowdate)
             newSave.push({ 
               title: keyword,
               reg_dt: Date.year + "-" + Date.LengthMonth + "-" + Date.LengthDate
@@ -63,26 +66,27 @@ const SearchBar = () => {
         } else if (status === window.kakao.maps.services.Status.ERROR) {
           return status
         }
-      
-
       };
     }
   };
   
   return (
-    <div className="search_bar flex flex_ai_c">
-      <input
-        type="text"
-        placeholder="검색어를 입력해주세요!"
-        onChange={(e) => setKeyword(e.target.value)}
-        onKeyPress={handleEnterKeyPress}
-        value={keyword}
-      />
-      <label htmlFor=""></label>
-      <button onClick={pushKeyword}>
-        <i className="xi-search"></i>
-      </button>
-    </div>
+    <>
+      <div className="search_bar relative flex flex_ai_c">
+        <input
+          type="text"
+          placeholder="검색어를 입력해주세요!"
+          onChange={(e) => setKeyword(e.target.value)}
+          onKeyPress={handleEnterKeyPress}
+          value={keyword}
+        />
+        <label htmlFor=""></label>
+        <button onClick={pushKeyword}>
+          <i className="xi-search"></i>
+        </button>
+      </div>
+      <div className={`${menuBg === true ? "active" : ""} menu_bg fixed`}></div>
+    </>
   );
 };
 

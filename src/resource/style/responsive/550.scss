@@ -1,0 +1,32 @@
+@media screen and (max-width:550px) {
+  .header {
+    .bars_btn {
+      &.active {z-index: 12;}
+    }
+  }
+  .search_bar {
+    input {width: 20rem; height: 3rem; font-size: 1.8rem;}
+  }
+  .result_pop {width: 50%;
+    .close_btn {margin:0.2rem; text-align: right;
+      i {font-size: 3rem;}
+    }
+    ul {
+      li {padding:1rem;
+        .place_name {
+          div{font-size:1.6rem;}
+        }
+        .place_addr {margin-top:0.5rem;
+          div{font-size:1.3rem; word-break: keep-all;}
+        }
+        .place_tel {margin-top:0.3rem;
+          div{font-size:1.2rem;}
+          i {font-size: 1.4rem;}
+        }
+      }
+    }
+  }
+  .sidemenu {width: 100%; right:-100%;
+    &.open {right:0; z-index: 11;}
+  }
+}

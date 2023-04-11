@@ -25,7 +25,9 @@ const Header = () => {
 
   return(
     <div className="header fixed flex flex_jc_sb flex_ai_c">
-      <div className="title">KakaoMap Toy Project</div>
+      <div className="title">
+        <i className="xi-map-o"></i>
+      </div>
       {
         path_name === "/" ? 
           <SearchBar/>
