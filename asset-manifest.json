@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/kakaomap/static/css/main.ca7c02b9.css",
-    "main.js": "/kakaomap/static/js/main.bf9b1606.js",
+    "main.js": "/kakaomap/static/js/main.92ac523f.js",
     "static/js/787.f9f10743.chunk.js": "/kakaomap/static/js/787.f9f10743.chunk.js",
     "static/media/Pretendard-Medium.otf": "/kakaomap/static/media/Pretendard-Medium.bcebdfe0d3918708aa5d.otf",
     "static/media/Pretendard-SemiBold.otf": "/kakaomap/static/media/Pretendard-SemiBold.9009f5d2e39a2d3bdaf6.otf",
@@ -19,13 +19,14 @@
     "static/media/xeicon.ttf?v=2.2.0": "/kakaomap/static/media/xeicon.f3b789d5c53f391f95a3.ttf",
     "static/media/xeicon.woff2?v=2.2.0": "/kakaomap/static/media/xeicon.62b99b0931f2ce65fd3a.woff2",
     "index.html": "/kakaomap/index.html",
+    "static/media/marker.svg": "/kakaomap/static/media/marker.e2d4035d45df2d16e940851fd810fe9d.svg",
     "static/media/current.svg": "/kakaomap/static/media/current.45ac7365d76406b4f5dd011e33e26c5d.svg",
     "main.ca7c02b9.css.map": "/kakaomap/static/css/main.ca7c02b9.css.map",
-    "main.bf9b1606.js.map": "/kakaomap/static/js/main.bf9b1606.js.map",
+    "main.92ac523f.js.map": "/kakaomap/static/js/main.92ac523f.js.map",
     "787.f9f10743.chunk.js.map": "/kakaomap/static/js/787.f9f10743.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ca7c02b9.css",
-    "static/js/main.bf9b1606.js"
+    "static/js/main.92ac523f.js"
   ]
 }
