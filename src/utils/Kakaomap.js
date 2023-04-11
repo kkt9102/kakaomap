@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import { searchKeywordState, searchResultState } from "../state/kakaomapState";
 import currentIcon from "../resource/img/current.svg";
+import markerIcon from "../resource/img/marker.svg";
 
 const KakaoMap = () => {
   const [map, setMap] = useState(null);
@@ -74,7 +75,7 @@ const KakaoMap = () => {
           map: map,
           position: locPosition,
           // 마커 아이콘을 설정합니다.
-          image: new window.kakao.maps.MarkerImage(currentIcon , new window.kakao.maps.Size(30, 30)),
+          image: new window.kakao.maps.MarkerImage(markerIcon , new window.kakao.maps.Size(30, 30)),
         });
         window.kakao.maps.event.addListener(marker, "mouseover", function () {
           displayInfowindow(marker, list.place_name);
