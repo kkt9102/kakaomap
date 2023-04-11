@@ -1,6 +1,7 @@
 @media screen and (max-width:550px) {
   .header {
-    .bars_btn {
+    .bars_btn {flex-basis:3rem; height:4rem;
+      div {width:3rem; height:0.3rem;}
       &.active {z-index: 12;}
     }
   }

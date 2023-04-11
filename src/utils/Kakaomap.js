@@ -17,7 +17,6 @@ const KakaoMap = () => {
           window.removeEventListener("resize", resizeWindow)
       };
   },[wid]);
-  console.log(wid)
   const [map, setMap] = useState(null);
   const container = useRef(null);
   const [userLat, setUserLat] = useState(null);
