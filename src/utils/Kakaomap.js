@@ -85,7 +85,6 @@ const KakaoMap = () => {
         const marker = new window.kakao.maps.Marker({
           map: map,
           position: locPosition,
-          // 마커 아이콘을 설정합니다.
           image: new window.kakao.maps.MarkerImage(markerIcon , new window.kakao.maps.Size(wid > 768 ? (20,20) : (17,17))),
         });
         window.kakao.maps.event.addListener(marker, "mouseover", function () {
@@ -106,10 +105,6 @@ const KakaoMap = () => {
   useEffect(() => {
 
   },[Result.page])
-  // SearchResult
-
-
-
 
   useEffect(() => {
     if (navigator.geolocation) {

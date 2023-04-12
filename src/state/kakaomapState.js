@@ -10,12 +10,12 @@ const saveKeywordState = atom({
   default: []
 });
 
-const searchResultState = selector({
+const searchResultState = atom({
   key: "result",
   default: {
     item: null,
     page: 1
-  },
+  }
 });
 
 const resultPopupState = atom({
