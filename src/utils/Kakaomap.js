@@ -33,7 +33,7 @@ const KakaoMap = () => {
     if (userLat && userLng) {
       const options = {
         center: new window.kakao.maps.LatLng(userLat, userLng),
-        level: wid > 768 ? 4 : 5,
+        level: 4,
       };
       const map = new window.kakao.maps.Map(container.current, options);
       // window.kakao.maps.event.addListener(map, 'zoom_changed', function() {
@@ -48,9 +48,9 @@ const KakaoMap = () => {
 
       const locPosition = new window.kakao.maps.LatLng(userLat, userLng);
       
-      // User Position Marker
+      // User Position Marker 
       const imageSrc  = currentIcon,
-            imageSize = new window.kakao.maps.Size(wid > 768 ? (20,20) : (17,17)),
+            imageSize = new window.kakao.maps.Size(20,20),
             imageOption = {offset: new window.kakao.maps.Point(0, 0)};
       const customMarker = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
       

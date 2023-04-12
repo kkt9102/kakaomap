@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector  } from "recoil";
 
 const searchKeywordState = atom({
   key: "keyword",
@@ -10,12 +10,12 @@ const saveKeywordState = atom({
   default: []
 });
 
-const searchResultState = atom({
+const searchResultState = selector({
   key: "result",
   default: {
     item: null,
     page: 1
-  }
+  },
 });
 
 const resultPopupState = atom({
