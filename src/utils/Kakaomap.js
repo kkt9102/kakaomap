@@ -1,59 +1,65 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { searchKeywordState, searchResultState } from "../state/kakaomapState";
 import currentIcon from "../resource/img/current.svg";
 import markerIcon from "../resource/img/marker.svg";
 
 const KakaoMap = () => {
-  const [ wid, setWid ] = useState(Number);
+  const [wid, setWid] = useState(window.innerWidth);
+  
   const resizeWindow = () => {
-    setWid(window.innerWidth)
+    setWid(window.innerWidth);
   };
+  
   useEffect(() => {
-    setWid(window.innerWidth)
-      window.addEventListener("resize", resizeWindow)
-      return () => {
-          window.removeEventListener("resize", resizeWindow)
-      };
-  },[wid]);
+    window.addEventListener("resize", resizeWindow);
+    return () => {
+      window.removeEventListener("resize", resizeWindow);
+    };
+  }, []);
+
   const [map, setMap] = useState(null);
   const container = useRef(null);
   const [userLat, setUserLat] = useState(null);
   const [userLng, setUserLng] = useState(null);
-  const [options, setOptions] = useState({
-    center: new window.kakao.maps.LatLng(userLat, userLng),
-    level: 4,
-  });
-  // getKeyword
-  const keywordString = useRecoilValue(searchKeywordState);
-  // search result
-  const Result = useRecoilValue(searchResultState);
+
   useEffect(() => {
-    if (userLat && userLng) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        setUserLat(lat);
+        setUserLng(lng);
+      });
+    } else {
+      alert("위치 정보를 사용할 수 없습니다.");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userLat !== null && userLng !== null) {
       const options = {
         center: new window.kakao.maps.LatLng(userLat, userLng),
         level: 4,
       };
       const map = new window.kakao.maps.Map(container.current, options);
-      // window.kakao.maps.event.addListener(map, 'zoom_changed', function() {
-      //   const getSize = map.getLevel();
-      //   setAtomValue({
-      //     size:getSize
-      //   })
-      // });
       map.setMinLevel(3);
       map.setMaxLevel(7);
       setMap(map);
 
       const locPosition = new window.kakao.maps.LatLng(userLat, userLng);
-      
-      // User Position Marker 
-      const imageSrc  = currentIcon,
-            imageSize = new window.kakao.maps.Size(20,20),
-            imageOption = {offset: new window.kakao.maps.Point(0, 0)};
-      const customMarker = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-      
+
+      // User Position Marker
+      const imageSrc = currentIcon,
+        imageSize = new window.kakao.maps.Size(20, 20),
+        imageOption = { offset: new window.kakao.maps.Point(0, 0) };
+      const customMarker = new window.kakao.maps.MarkerImage(
+        imageSrc,
+        imageSize,
+        imageOption
+      );
+
       const marker = new window.kakao.maps.Marker({
         map: map,
         image: customMarker,
@@ -72,55 +78,47 @@ const KakaoMap = () => {
         fillOpacity: 0.15,
       });
       circle.setMap(map);
-    };
-    
-  }, [userLat, userLng, options]);
+    }
+  }, [userLat, userLng, wid]);
 
+  const Result = useRecoilValue(searchResultState);
 
-
-    let infowindow = new window.kakao.maps.InfoWindow({zIndex:1});
+  useEffect(() => {
     if (Result.item !== null) {
+      const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
+
       Result.item.forEach((list, index) => {
         const locPosition = new window.kakao.maps.LatLng(list.y, list.x);
         const marker = new window.kakao.maps.Marker({
           map: map,
           position: locPosition,
-          image: new window.kakao.maps.MarkerImage(markerIcon , new window.kakao.maps.Size(wid > 768 ? (20,20) : (17,17))),
+          image: new window.kakao.maps.MarkerImage(
+            markerIcon,
+            new window.kakao.maps.Size(wid > 768 ? 20 : 17, wid > 768 ? 20 : 17)
+          ),
         });
+
         window.kakao.maps.event.addListener(marker, "mouseover", function () {
           displayInfowindow(marker, list.place_name);
+          infowindow.open(map, marker);
         });
-        window.kakao.maps.event.addListener(marker, 'mouseout', function() {
+
+        window.kakao.maps.event.addListener(marker, "mouseout", function () {
           infowindow.close();
         });
       });
-    };
-    function displayInfowindow(marker, title) {
-      let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-      infowindow.setContent(content);
-      infowindow.open(map, marker);
-    };
+
+        function displayInfowindow(marker, title) {
+          const content = '<div style="padding:5px;z-index:1;" class="test">' + title + "</div>";
+          infowindow.setContent(content);
+          infowindow.open(map, marker);
+        }
+
+    }
+  }, [Result, map, wid]);
 
 
-  useEffect(() => {
-
-  },[Result.page])
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const locPosition = new window.kakao.maps.LatLng(lat,lng);
-        setUserLat(lat);
-        setUserLng(lng);
-      });
-    } else {
-      alert("위치 정보를 사용할 수 없습니다.");
-    };
-  }, []);
-
-  return(
+  return (
     <>
       <div id="map" ref={container}></div>
     </>
