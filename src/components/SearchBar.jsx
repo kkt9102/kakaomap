@@ -70,6 +70,7 @@ const SearchBar = () => {
           } else if (status === window.kakao.maps.services.Status.ERROR) {
             return status
           }
+
         };
       }
     }

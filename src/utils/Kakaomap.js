@@ -7,6 +7,7 @@ import markerIcon from "../resource/img/marker.svg";
 
 const KakaoMap = () => {
   const [wid, setWid] = useState(window.innerWidth);
+  const keyword = useRecoilValue(searchKeywordState)
   
   const resizeWindow = () => {
     setWid(window.innerWidth);
@@ -84,7 +85,6 @@ const KakaoMap = () => {
   const Result = useRecoilValue(searchResultState);
 
   useEffect(() => {
-    console.log("Result",Result)
     if (Result.item !== null) {
       const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 
@@ -115,17 +115,17 @@ const KakaoMap = () => {
         infowindow.open(map, marker);
       }
 
-      function removeMarker(marker) {
-        for ( let i = 0; i < marker.length; i++ ) {
-          marker[i].setMap(null);
-        }   
-        marker = [];
-      }
-      if (Result.length > 1) {
-        removeMarker()
-      }
+      // function removeMarker(marker) {
+      //   for ( let i = 0; i < marker.length; i++ ) {
+      //     marker[i].setMap(null);
+      //   }   
+      //   marker = [];
+      // }
+      // if (Result.length > 1) {
+      //   removeMarker()
+      // }
     }
-  }, [Result, map, wid]);
+  }, [Result, map, wid, keyword]);
 
   return (
     <>
