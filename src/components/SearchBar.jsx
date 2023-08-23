@@ -34,42 +34,49 @@ const SearchBar = () => {
   };
 
   const pushKeyword = () => {
-    if (userLat && userLng) {
-      const ps = new window.kakao.maps.services.Places();
-      const searchOption = {
-        location: new window.kakao.maps.LatLng(userLat, userLng),
-        radius: 1000,
-        size: 15,
-        page: 1,
-      };
-      ps.keywordSearch(keyword, palceSearchDB, searchOption);
-      function palceSearchDB(data, status, pagination) {
-        if (status === window.kakao.maps.services.Status.OK) {
-          setSave((oldSave) => {
-            const newSave = [...oldSave];
-            console.log(Date.nowdate)
-            newSave.push({ 
-              title: keyword,
-              reg_dt: Date.year + "-" + Date.LengthMonth + "-" + Date.LengthDate
-                      + " " + Date.LenghtHours + ":" + Date.LengthMin + ":" + Date.LengthSec
+    if (keyword >= 0) {
+      alert("검색어가 없어요.")
+    } else {
+      if (userLat && userLng) {
+        const ps = new window.kakao.maps.services.Places();
+        const searchOption = {
+          location: new window.kakao.maps.LatLng(userLat, userLng),
+          radius: 1000,
+          size: 15,
+          page: 1,
+        };
+        // SEARCH FUNCTION
+        ps.keywordSearch(keyword, palceSearchDB, searchOption);
+        function palceSearchDB(data, status, pagination) {
+          if (status === window.kakao.maps.services.Status.OK) {
+            setSave((oldSave) => {
+              const newSave = [...oldSave];
+              console.log(Date.nowdate)
+              newSave.push({ 
+                title: keyword,
+                reg_dt: Date.year + "-" + Date.LengthMonth + "-" + Date.LengthDate
+                        + " " + Date.LenghtHours + ":" + Date.LengthMin + ":" + Date.LengthSec
+              });
+              return newSave.slice(-5);
             });
-            return newSave.slice(-5);
-          });
 
-          setResuultPop(true);
-          setResult({
-            item: data,
-            page: pagination
-          });
-        } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-          return status
-        } else if (status === window.kakao.maps.services.Status.ERROR) {
-          return status
-        }
-      };
+            setResuultPop(true);
+            setResult({
+              item: data,
+              page: pagination
+            });
+          } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
+            return status
+          } else if (status === window.kakao.maps.services.Status.ERROR) {
+            return status
+          }
+        };
+      }
     }
   };
   
+  useEffect(() => {},[result,keyword])
+
   return (
     <>
       <div className="search_bar relative flex flex_ai_c">
