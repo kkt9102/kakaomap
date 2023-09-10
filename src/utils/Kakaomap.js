@@ -104,13 +104,10 @@ const KakaoMap = () => {
           infowindow.open(map, marker);
         });
 
-        window.kakao.maps.event.addListener(marker, "mouseout", function () {
-          infowindow.close();
-        });
       });
 
       function displayInfowindow(marker, title) {
-        const content = '<div style="padding:5px;z-index:1;" class="test">' + title + "</div>";
+        const content = '<div class="info_window">' + title + "</div>";
         infowindow.setContent(content);
         infowindow.open(map, marker);
       }
