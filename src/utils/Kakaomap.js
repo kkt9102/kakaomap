@@ -37,6 +37,8 @@ const KakaoMap = () => {
       alert("위치 정보를 사용할 수 없습니다.");
     }
   }, []);
+  const Result = useRecoilValue(searchResultState);
+  const pageNum = Result.page?.current
 
   useEffect(() => {
     if (userLat !== null && userLng !== null) {
@@ -44,6 +46,7 @@ const KakaoMap = () => {
         center: new window.kakao.maps.LatLng(userLat, userLng),
         level: 4,
       };
+      
       const map = new window.kakao.maps.Map(container.current, options);
       map.setMinLevel(3);
       map.setMaxLevel(7);
@@ -80,9 +83,9 @@ const KakaoMap = () => {
       });
       circle.setMap(map);
     }
-  }, [userLat, userLng, wid]);
 
-  const Result = useRecoilValue(searchResultState);
+  }, [userLat, userLng, wid, container]);
+
 
   useEffect(() => {
     if (Result.item !== null) {
@@ -99,30 +102,30 @@ const KakaoMap = () => {
           ),
         });
 
-        window.kakao.maps.event.addListener(marker, "mouseover", function () {
+        window.kakao.maps.event.addListener(marker, "click", function () {
           displayInfowindow(marker, list.place_name);
           infowindow.open(map, marker);
         });
-
       });
 
       function displayInfowindow(marker, title) {
-        const content = '<div class="info_window">' + title + "</div>";
+        const content = '<div class="info_window" style="white-space:nowrap">' + title + "</div>";
         infowindow.setContent(content);
         infowindow.open(map, marker);
       }
 
-      // function removeMarker(marker) {
-      //   for ( let i = 0; i < marker.length; i++ ) {
-      //     marker[i].setMap(null);
-      //   }   
-      //   marker = [];
-      // }
-      // if (Result.length > 1) {
-      //   removeMarker()
-      // }
+      function removeMarker(marker) {
+        for ( let i = 0; i < marker.length; i++ ) {
+          marker[i].setMap(null);
+        }   
+        marker = [];
+      }
+      if (Result.length > 1) {
+        removeMarker()
+      }
     }
-  }, [Result, map, wid, keyword]);
+    
+  }, [Result, map, wid, keyword, pageNum]);
 
   return (
     <>

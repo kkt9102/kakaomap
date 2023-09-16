@@ -12,24 +12,17 @@ const ResultPopup = () => {
     setResuultPop(false);
   }
 
-  const handleFocusMarker = (e) => {
-    
-  }
-  function handlePaginationClick(page) {
-    // 페이지 번호를 클릭하면 이 함수가 호출되어 해당 페이지로 이동
-  }
   function displayPagination(pagination) {
-    var paginationEl = document.getElementById("pagination"),
+    let paginationEl = document.getElementById("pagination"),
       fragment = document.createDocumentFragment(),
       i;
 
-    // 기존에 추가된 페이지번호를 삭제합니다
     while (paginationEl.hasChildNodes()) {
       paginationEl.removeChild(paginationEl.lastChild);
     }
 
     for (i = 1; i <= pagination.last; i++) {
-      var el = document.createElement("a");
+      let el = document.createElement("a");
       el.href = "#";
       el.innerHTML = i;
 
@@ -42,13 +35,11 @@ const ResultPopup = () => {
           };
         })(i);
       }
-
       fragment.appendChild(el);
     }
     paginationEl.appendChild(fragment);
   }
 
-  // pagination UI를 업데이트
   useEffect(() => {
     if (Result.page) {
       displayPagination(Result.page);
