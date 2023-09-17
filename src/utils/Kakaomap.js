@@ -8,7 +8,6 @@ import markerIcon from "../resource/img/marker.svg";
 const KakaoMap = () => {
   const [wid, setWid] = useState(window.innerWidth);
   const keyword = useRecoilValue(searchKeywordState)
-  
   const resizeWindow = () => {
     setWid(window.innerWidth);
   };
@@ -25,6 +24,9 @@ const KakaoMap = () => {
   const [userLat, setUserLat] = useState(null);
   const [userLng, setUserLng] = useState(null);
 
+  // 마커 객체들을 저장할 배열
+  const markers = useRef([]);
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -39,6 +41,7 @@ const KakaoMap = () => {
   }, []);
   const Result = useRecoilValue(searchResultState);
   const pageNum = Result.page?.current
+  console.log(Result)
 
   useEffect(() => {
     if (userLat !== null && userLng !== null) {
@@ -82,14 +85,21 @@ const KakaoMap = () => {
         fillOpacity: 0.15,
       });
       circle.setMap(map);
+
+      // 마커 배열에 추가
+      markers.current.push(marker);
     }
 
   }, [userLat, userLng, wid, container]);
 
-
   useEffect(() => {
     if (Result.item !== null) {
       const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
+
+      // 이전 마커 제거
+      markers.current.forEach((marker) => {
+        marker.setMap(null);
+      });
 
       Result.item.forEach((list, index) => {
         const locPosition = new window.kakao.maps.LatLng(list.y, list.x);
@@ -102,6 +112,8 @@ const KakaoMap = () => {
           ),
         });
 
+        markers.current.push(marker);
+
         window.kakao.maps.event.addListener(marker, "click", function () {
           displayInfowindow(marker, list.place_name);
           infowindow.open(map, marker);
@@ -112,16 +124,6 @@ const KakaoMap = () => {
         const content = '<div class="info_window" style="white-space:nowrap">' + title + "</div>";
         infowindow.setContent(content);
         infowindow.open(map, marker);
-      }
-
-      function removeMarker(marker) {
-        for ( let i = 0; i < marker.length; i++ ) {
-          marker[i].setMap(null);
-        }   
-        marker = [];
-      }
-      if (Result.length > 1) {
-        removeMarker()
       }
     }
     
