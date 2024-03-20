@@ -4,13 +4,12 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { searchResultState, resultPopupState } from "../state/kakaomapState";
 
 const ResultPopup = () => {
-  const [resultPop, setResuultPop] = useRecoilState(resultPopupState);
+  const [resultPop, setResultPop] = useRecoilState(resultPopupState);
   const Result = useRecoilValue(searchResultState);
-  console.log(Result)
 
   const handleClosePopup = () => {
-    setResuultPop(false);
-  }
+    setResultPop(false);
+  };
 
   function displayPagination(pagination) {
     let paginationEl = document.getElementById("pagination"),
@@ -44,15 +43,15 @@ const ResultPopup = () => {
     if (Result.page) {
       displayPagination(Result.page);
     }
-  },[Result.page]);
+  }, [Result.page]);
 
-  return(
+  return (
     <div className="result_pop fixed">
       <div className="close_btn cursor_p" onClick={handleClosePopup}>
         <i className="xi-close"></i>
       </div>
       <ul>
-        {Result.item.map((item, index) =>
+        {Result.item.map((item, index) => (
           <li key={index}>
             <div className="place_name flex flex_jc_s flex_ai_c">
               <div>{item.place_name}</div>
@@ -61,20 +60,18 @@ const ResultPopup = () => {
               <i className="xi-home-o"></i>
               <div>{item.road_address_name}</div>
             </div>
-            {item.phone.length !== 0 ? 
-            <div className="place_tel flex flex_jc_s flex_ai_c">
-              <i className="xi-call"></i>
-              <div>{item.phone}</div>
-            </div>
-            :
-            null
-            }
+            {item.phone.length !== 0 ? (
+              <div className="place_tel flex flex_jc_s flex_ai_c">
+                <i className="xi-call"></i>
+                <div>{item.phone}</div>
+              </div>
+            ) : null}
           </li>
-        )}
+        ))}
       </ul>
       <div id="pagination" className="flex flex_jc_c flex_ai_c"></div>
     </div>
-  )
-}
+  );
+};
 
 export default ResultPopup;

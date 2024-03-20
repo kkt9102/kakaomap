@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import { searchKeywordState, searchResultState, saveKeywordState, resultPopupState } from "../state/kakaomapState";
+import {
+  searchKeywordState,
+  searchResultState,
+  saveKeywordState,
+  resultPopupState,
+} from "../state/kakaomapState";
 import { menuState } from "../state/commonState";
 import * as Date from "../utils/datetime";
 
@@ -9,12 +14,13 @@ const SearchBar = () => {
   const [keyword, setKeyword] = useRecoilState(searchKeywordState);
   const [userLat, setUserLat] = useState(null);
   const [userLng, setUserLng] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [result, setResult] = useRecoilState(searchResultState);
   const [save, setSave] = useRecoilState(saveKeywordState);
-  const [resultPop, setResuultPop] = useRecoilState(resultPopupState);
+  const [resultPop, setResultPop] = useRecoilState(resultPopupState);
 
   const menuBg = useRecoilValue(menuState);
-  
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -35,7 +41,7 @@ const SearchBar = () => {
 
   const pushKeyword = () => {
     if (keyword >= 0) {
-      alert("검색어가 없어요.")
+      alert("검색어가 없어요.");
     } else {
       if (userLat && userLng) {
         const ps = new window.kakao.maps.services.Places();
@@ -46,37 +52,49 @@ const SearchBar = () => {
           page: 1,
         };
         // SEARCH FUNCTION
-        ps.keywordSearch(keyword, palceSearchDB, searchOption);
-        function palceSearchDB(data, status, pagination) {
+        ps.keywordSearch(keyword, placeSearchDB, searchOption);
+        function placeSearchDB(data, status, pagination) {
           if (status === window.kakao.maps.services.Status.OK) {
-            setSave((oldSave) => {
-              const newSave = [...oldSave];
-              console.log(Date.nowdate)
-              newSave.push({ 
-                title: keyword,
-                reg_dt: Date.year + "-" + Date.LengthMonth + "-" + Date.LengthDate
-                        + " " + Date.LenghtHours + ":" + Date.LengthMin + ":" + Date.LengthSec
-              });
-              return newSave.slice(-5);
-            });
+            console.log("pagination", pagination.current);
 
-            setResuultPop(true);
+            if (pagination.current === 1) {
+              setSave((oldSave) => {
+                const newSave = [...oldSave];
+                newSave.push({
+                  title: keyword,
+                  reg_dt:
+                    Date.year +
+                    "-" +
+                    Date.LengthMonth +
+                    "-" +
+                    Date.LengthDate +
+                    " " +
+                    Date.LenghtHours +
+                    ":" +
+                    Date.LengthMin +
+                    ":" +
+                    Date.LengthSec,
+                });
+
+                return newSave.slice(-5);
+              });
+            }
+            setResultPop(true);
             setResult({
               item: data,
-              page: pagination
+              page: pagination,
             });
           } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
-            return status
+            return status;
           } else if (status === window.kakao.maps.services.Status.ERROR) {
-            return status
+            return status;
           }
-
-        };
+        }
       }
     }
   };
-  
-  useEffect(() => {},[result,keyword])
+
+  useEffect(() => {}, [result, keyword]);
 
   return (
     <>

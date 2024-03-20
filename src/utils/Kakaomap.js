@@ -7,11 +7,11 @@ import markerIcon from "../resource/img/marker.svg";
 
 const KakaoMap = () => {
   const [wid, setWid] = useState(window.innerWidth);
-  const keyword = useRecoilValue(searchKeywordState)
+  const keyword = useRecoilValue(searchKeywordState);
   const resizeWindow = () => {
     setWid(window.innerWidth);
   };
-  
+
   useEffect(() => {
     window.addEventListener("resize", resizeWindow);
     return () => {
@@ -40,8 +40,7 @@ const KakaoMap = () => {
     }
   }, []);
   const Result = useRecoilValue(searchResultState);
-  const pageNum = Result.page?.current
-  console.log(Result)
+  const pageNum = Result.page?.current;
 
   useEffect(() => {
     if (userLat !== null && userLng !== null) {
@@ -49,7 +48,7 @@ const KakaoMap = () => {
         center: new window.kakao.maps.LatLng(userLat, userLng),
         level: 4,
       };
-      
+
       const map = new window.kakao.maps.Map(container.current, options);
       map.setMinLevel(3);
       map.setMaxLevel(7);
@@ -89,7 +88,6 @@ const KakaoMap = () => {
       // 마커 배열에 추가
       markers.current.push(marker);
     }
-
   }, [userLat, userLng, wid, container]);
 
   useEffect(() => {
@@ -121,12 +119,14 @@ const KakaoMap = () => {
       });
 
       function displayInfowindow(marker, title) {
-        const content = '<div class="info_window" style="white-space:nowrap">' + title + "</div>";
+        const content =
+          '<div class="info_window" style="white-space:nowrap">' +
+          title +
+          "</div>";
         infowindow.setContent(content);
         infowindow.open(map, marker);
       }
     }
-    
   }, [Result, map, wid, keyword, pageNum]);
 
   return (

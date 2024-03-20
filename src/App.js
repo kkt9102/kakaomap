@@ -6,13 +6,13 @@ import SearchArchive from "./pages/SearchArchive";
 const App = () => {
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <Routes>
-        <Route path="kakaomap" element={<Main/>}/>
-        <Route path="archive" element={<SearchArchive/>}/>
+        <Route path="kakaomap" element={<Main />} />
+        <Route path="archive" element={<SearchArchive />} />
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
